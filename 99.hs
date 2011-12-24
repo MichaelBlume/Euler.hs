@@ -182,8 +182,6 @@ primeMap = map (\x -> (x, isPrime x)) [2..]
 primes :: (Integral a) => [a]
 primes = map first $ filter second $ primeMap
 
-main = print $ primes !! 100000
-
 divThreeOrFive :: Int -> Bool
 divThreeOrFive x = (mod x 5) * (mod x 3) == 0
 
@@ -457,6 +455,8 @@ abundantSum n = any isAbundant $ remainders where
   remainders = map (n-) $ under n $ atLeast ((div n 2) - 1) abundants
 
 prob23Result = sum $ filter (not . abundantSum) [1..28123]
+
+main = print prob23Result
 
 atLeast n = dropWhile (<n)
 
