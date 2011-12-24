@@ -4,7 +4,6 @@ module Helpers
 , first, second
 , sort
 , square
-, under
 , primeFactorization
 , split
 , pow
