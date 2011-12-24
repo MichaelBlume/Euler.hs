@@ -215,6 +215,9 @@ dispatch 24 = putStrLn $ (perms "0123456789") !! 999999 where
   perms l= foldl (++) [] $ map (permsNFirst l) l where
     permsNFirst l n = map (n:) $ perms $ filter (/=n) l
 
+dispatch 25 = print $ 1 + (length smallFibs) where
+  bigNum = pow 10 999
+  smallFibs = under bigNum fibs
 
 main = do
   args <- getArgs
