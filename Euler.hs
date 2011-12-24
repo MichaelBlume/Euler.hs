@@ -3,6 +3,7 @@ import Data.Char
 
 import Primes
 import Helpers
+import IOHelpers
 import Onelines
 
 dispatch :: Int -> IO ()

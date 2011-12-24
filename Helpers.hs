@@ -6,12 +6,9 @@ module Helpers
 , square
 , under
 , primeFactorization
-, getLines
 , split
-, getIntGrid
 , pow
 , sumDigs
-, getAndProcess
 , sumProDivs
 ) where
 
@@ -32,11 +29,6 @@ myData = map helper [0..]
 helper 0 = 0
 helper n = (sum $ allDivs n) - n
 
-getAndProcess :: (Show b) => IO a -> (a -> b) -> IO ()
-getAndProcess getter processor = do
-  intermediate <- getter
-  print $ processor intermediate
-
 sumDigs :: Int -> Int
 sumDigs = sum . map (\n -> read [n]) . show
 
@@ -45,28 +37,12 @@ pow a b
   | divs b 2 = pow (a*a) (div b 2)
   | otherwise = a * (pow a (b-1))
 
-getIntGrid = do
-  putStrLn "Paste the big grid, then blank line"
-  lines <- getLines
-  return $ map parseIntLine lines where
-    parseIntLine :: String -> [Int]
-    parseIntLine = map read . split ' '
-
 split :: (Eq a) => a -> [a] -> [[a]]
 split _ [] = [[]]
 split s (h:t)
   | s == h = []:(split s t)
   | otherwise = (h:first):rest where
       (first:rest) = split s t
-
-getLines :: IO [[Char]]
-getLines = do
-  line <- getLine
-  if null line
-      then return []
-      else do
-          rest <- getLines
-          return (line:rest)
 
 primeFactorization :: Int -> [Int]
 primeFactorization = helper primes where
