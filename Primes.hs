@@ -2,7 +2,8 @@ module Primes
 ( primes
 ) where
 
-import Helpers
+import Onelines
+
 
 isPrime :: (Integral a) => a -> Bool
 isPrime 2 = True
