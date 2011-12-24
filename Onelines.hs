@@ -14,5 +14,4 @@ square x = x*x
 divs :: (Integral a) => a -> a -> Bool
 divs a b = (mod a b) == 0
 
-under :: Int -> [Int] -> [Int]
 under x = takeWhile (<x)
