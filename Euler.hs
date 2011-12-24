@@ -213,6 +213,12 @@ dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
     remainders = map (n-) $ under n $ atLeast ((div n 2) - 1) abundants
 
   atLeast n = dropWhile (<n)
+dispatch 24 = putStrLn $ (perms "0123456789") !! 999999 where
+  perms :: (Eq a) => [a] -> [[a]]
+  perms [] = [[]]
+  perms l= foldl (++) [] $ map (permsNFirst l) l where
+    permsNFirst l n = map (n:) $ perms $ filter (/=n) l
+
 
 main = do
   args <- getArgs
