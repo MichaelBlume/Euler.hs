@@ -11,10 +11,9 @@ dispatch 1 = print $ sum $ filter divThreeOrFive $ [0..999] where
   divThreeOrFive :: Int -> Bool
   divThreeOrFive x = (mod x 5) * (mod x 3) == 0
 
-dispatch 2 = print $ sum $ filter even $ under 4000000 fibs where
-  fibs :: [Int]
-  fibs = 1:1: (zipWith (+) (tail fibs) fibs)
-
+dispatch 2 = print result where
+  result :: Int
+  result = sum $ filter even $ under 4000000 fibs
 
 dispatch 3 = print $ largestPrimeFactor 600851475143 where
   largestPrimeFactor :: Int -> Int

@@ -10,11 +10,15 @@ module Helpers
 , pow
 , sumDigs
 , sumProDivs
+, fibs
 ) where
 
 import Control.Applicative
 import Primes
 import Onelines
+
+fibs :: (Integral n) => [n]
+fibs = 1:1: (zipWith (+) (tail fibs) fibs)
 
 allProds a b = (*) <$> a <*> b
 
