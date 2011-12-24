@@ -176,7 +176,6 @@ dispatch 21 = print $ sum $ filter amicable [1..9999] where
   amicable n = (n /= m) && (n == (sumProDivs m)) where
     m = sumProDivs n
 
-
 dispatch 22 = getAndProcess getContents totalFromText where
   everyOther :: [a] -> [a]
   everyOther [] = []
@@ -200,8 +199,6 @@ dispatch 22 = getAndProcess getContents totalFromText where
   scoreNameTuple (a, name) = (a + 1) * (scoreName name)
 
   totalFromText = sum . map scoreNameTuple . enumerate . sort . namesFromText
-
-
 
 dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
   isAbundant n = n < (sumProDivs n)
