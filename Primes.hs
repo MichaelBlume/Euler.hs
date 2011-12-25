@@ -23,5 +23,5 @@ primeMap :: (Integral a) => [(a, Bool)]
 primeMap = map (\x -> (x, isPrime x)) [2..]
 
 primes :: (Integral a) => [a]
-primes = map first $ filter second $ primeMap
+primes = map first $ filter snd $ primeMap
 

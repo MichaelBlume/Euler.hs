@@ -1,13 +1,8 @@
 module Onelines
-( first
-, second
-, square
+( square
 , divs
 , under
 ) where
-
-first (a,b) = a
-second (a,b) = b
 
 square x = x*x
 

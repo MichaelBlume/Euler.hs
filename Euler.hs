@@ -125,7 +125,7 @@ dispatch 12 = print $ bigTrigWithNDivs 501 where
   hasNDivs n bignum = n <= (countDivs bignum)
 
   countDivs :: Int -> Int
-  countDivs = product . map (+1) . map first . encodeDirect . primeFactorization
+  countDivs = product . map (+1) . map fst . encodeDirect . primeFactorization
 
   triangles :: [Int]
   triangles = triHelper 1 2 where
@@ -232,7 +232,7 @@ dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
   nines = 1:(map helper [1..])
   helper n = (pow 10 n) - 1
 
-dispatch 27 = print $ (first result) * (second result) where
+dispatch 27 = print $ (fst result) * (snd result) where
   lengthPrimes = length . takeWhile isPrime
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
   result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
