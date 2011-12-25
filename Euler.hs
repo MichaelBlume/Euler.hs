@@ -1,5 +1,6 @@
 import System.Environment
 import Data.Char
+import Data.List
 
 import Primes
 import Helpers
