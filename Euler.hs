@@ -39,7 +39,9 @@ dispatch 5 = print $ foldr lcm 1 [1..20]
 
 dispatch 6 = print $ (square $ sum [1..100]) - (sum $ map square [1..100])
 
-dispatch 7 = print $ primes !! 10000
+dispatch 7 = print result where
+  result :: Int
+  result = primes !! 10000
 
 dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
   getBigStr = do
