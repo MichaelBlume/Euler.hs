@@ -131,7 +131,7 @@ dispatch 12 = print $ bigTrigWithNDivs 501 where
 
 dispatch 13 = getAndProcess getLines $ (take 10) . show . sum . (map read)
 
-dispatch 14 = print $ second $ maximum $ map collatzDec [1..999999] where
+dispatch 14 = print $ maximizeFunc collatzLength [1..999999] where
   collatzLength :: Int -> Int
   collatzLength 1 = 1
   collatzLength a = 1 + (collatzLength next) where
