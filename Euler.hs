@@ -75,7 +75,9 @@ dispatch 9 = print $ threeProd $ head $ goodTrips where
 
   threeProd (a, b, c) = a * b * c
 
-dispatch 10 = print $ sum $ under 2000000 primes
+dispatch 10 = print $ sum $ smallPrimes where
+  smallPrimes :: [Int]
+  smallPrimes = under 2000000 primes
 
 dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
 
