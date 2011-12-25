@@ -35,7 +35,7 @@ dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes whe
       | otherwise = helper (x-1)
 
 
-dispatch 5 = print $ foldl lcm 1 [1..20] 
+dispatch 5 = print $ foldr lcm 1 [1..20]
 
 dispatch 6 = print $ (square $ sum [1..100]) - (sum $ map square [1..100])
 
