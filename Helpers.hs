@@ -38,7 +38,7 @@ myData = map helper [0..]
 helper 0 = 0
 helper n = (sum $ allDivs n) - n
 
-sumDigs :: Int -> Int
+sumDigs :: (Integral i) => i -> Int
 sumDigs = sum . map (\n -> read [n]) . show
 
 pow _ 0 = 1
