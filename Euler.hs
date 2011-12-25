@@ -160,7 +160,7 @@ dispatch 15 = print $ countPaths 20 20 where
 dispatch 16 = print $ sumDigs $ pow 2 1000
 
 
-dispatch 17 = getAndProcess getIntGrid maxPath where
+dispatch 18 = getAndProcess getIntGrid maxPath where
   nextSums :: [Int] -> [Int] -> [Int]
   nextSums prevSums newRow = zipWith max leftSums rightSums where
     leftSums = zipWith (+) (0:prevSums) newRow
@@ -172,7 +172,7 @@ dispatch 17 = getAndProcess getIntGrid maxPath where
   maxPath :: [[Int]] -> Int
   maxPath = maximum . lastRowSums
 
-dispatch 19 = print $ sumDigs $ facto 100 where
+dispatch 20 = print $ sumDigs $ facto 100 where
   facto 0 = 1
   facto 1 = 1
   facto n = n * (facto (n-1))
