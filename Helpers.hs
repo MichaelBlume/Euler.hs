@@ -1,9 +1,6 @@
 module Helpers
 ( encodeDirect
-, divs
-, first, second
 , sort
-, square
 , primeFactorization
 , split
 , pow
