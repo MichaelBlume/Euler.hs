@@ -219,6 +219,12 @@ dispatch 25 = print $ 1 + (length smallFibs) where
   bigNum = pow 10 999
   smallFibs = under bigNum fibs
 
+dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
+  firstDivisor n = head $ filter ((flip divs) n) bigDivs
+  bigDivs = map (\n -> n * 1024 * 3125) nines
+  nines = 1:(map helper [1..])
+  helper n = (pow 10 n) - 1
+
 main = do
   args <- getArgs
   dispatch $ read $ args !! 0
