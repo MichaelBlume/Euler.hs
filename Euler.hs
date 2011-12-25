@@ -66,7 +66,8 @@ dispatch 9 = print $ threeProd $ head $ goodTrips where
     tripletsBelow max 
       | max*3 < sum = []
       | otherwise = (tripletsStarting max) ++ (tripletsBelow $ max - 1)
-    tripletsStarting a = map makeTrip $ reverse [(div (a-1) 2)+1..top] where
+    tripletsStarting a = map makeTrip $ reverse [bottom..top] where
+      bottom = (div (a-1) 2)+1
       top = min (a-1) (sum-a)
       makeTrip b = (a, b, sum-a-b)
 
