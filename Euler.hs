@@ -132,7 +132,10 @@ dispatch 12 = print $ bigTrigWithNDivs 501 where
     triHelper tri nat = (tri:rest) where
       rest = triHelper (tri+nat) (nat+1)
 
-dispatch 13 = getAndProcess getLines $ (take 10) . show . sum . (map read)
+dispatch 13 = do
+  putStrLn "Paste in all the numbers, then a blank"
+  lines <- getLines
+  putStrLn $ (take 10) . show . sum . (map read) $ lines
 
 dispatch 14 = print $ maximizeFunc collatzLength [1..999999] where
   collatzLength :: Int -> Int
