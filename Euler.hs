@@ -46,7 +46,7 @@ dispatch 7 = print result where
 dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
   getBigStr = do
     lines <- getLines
-    return $ foldl (++) "" lines
+    return $ foldr (++) "" lines
 
   biggestProductIn :: Int -> String -> Int
   biggestProductIn n = maximum . map product . subLists n . map makeNum
