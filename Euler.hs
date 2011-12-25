@@ -28,11 +28,11 @@ dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes whe
   enumerateSixPalindromes = map palindromizeNum $ reverse [100..999]
 
   isThreeDigProduct :: Int -> Bool
-  isThreeDigProduct p = isThreeDigProductOne 999 where
-    isThreeDigProductOne x
+  isThreeDigProduct p = helper 999 where
+    helper x
       | x * x < p = False
       | and [divs p x, (div p x) > 99] = True
-      | otherwise = isThreeDigProductOne (x-1)
+      | otherwise = helper (x-1)
 
 
 dispatch 5 = print $ foldl lcm 1 [1..20] 
