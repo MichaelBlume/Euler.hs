@@ -83,7 +83,7 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
 
   getBiggestProduct length grid = maximum $ map product $ enumerateLines length grid
 
-  enumerateLines length grid = foldl (++) [] sublists where
+  enumerateLines length grid = foldr (++) [] sublists where
     sublists = map (linesForDir grid length) enumerateDirs
 
   enumerateDirs = [(1,0), (0,1), (1,1), (-1,1)]
@@ -111,7 +111,7 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
   goodRange full length 1 = [0..full-length]
 
   zipCombs :: [a] -> [b] -> [(a,b)]
-  zipCombs l1 l2 = foldl (++) [] $ map helper1 l2 where
+  zipCombs l1 l2 = foldr (++) [] $ map helper1 l2 where
     helper1 n2 = map helper2 l1 where
       helper2 n1 = (n1, n2)
 
@@ -163,7 +163,7 @@ dispatch 17 = getAndProcess getIntGrid maxPath where
     rightSums = zipWith (+) (prevSums ++ [0]) newRow
 
   lastRowSums :: [[Int]] -> [Int]
-  lastRowSums = foldl nextSums []
+  lastRowSums = foldl' nextSums []
 
   maxPath :: [[Int]] -> Int
   maxPath = maximum . lastRowSums
@@ -215,7 +215,7 @@ dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
 dispatch 24 = putStrLn $ (perms "0123456789") !! 999999 where
   perms :: (Eq a) => [a] -> [[a]]
   perms [] = [[]]
-  perms l= foldl (++) [] $ map (permsNFirst l) l where
+  perms l= foldr (++) [] $ map (permsNFirst l) l where
     permsNFirst l n = map (n:) $ perms $ filter (/=n) l
 
 dispatch 25 = print $ 1 + (length smallFibs) where

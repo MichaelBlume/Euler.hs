@@ -28,7 +28,7 @@ fibs = 1:1: (zipWith (+) (tail fibs) fibs)
 
 allProds a b = (*) <$> a <*> b
 
-nonDetProduct = foldl allProds [1]
+nonDetProduct = foldr allProds [1]
 
 getPows (n,b) = map (pow b) [0..n]
 
@@ -202,7 +202,7 @@ combinations n (fst:rst) = withFst ++ woFst where
 group :: (Integral n) => [n] -> [x] -> [[[x]]]
 group [] _ = [[]]
 group _ [] = [[]]
-group (fst:rst) lst = foldl (++) [] $ map getallcombs firstcombs where
+group (fst:rst) lst = foldr (++) [] $ map getallcombs firstcombs where
     firstcombs = combwrem fst lst
     getallcombs (comb, rem) = (comb:) <$> group rst rem
 
