@@ -7,11 +7,21 @@ module Helpers
 , sumDigs
 , sumProDivs
 , fibs
+, maximizeFunc
 ) where
 
 import Control.Applicative
 import Primes
 import Onelines
+
+maximizeFunc :: (Ord b) => (a -> b) -> [a] -> a
+maximizeFunc f [] = error "empty list"
+maximizeFunc f (n:ns) = helper n (f n) ns where
+  helper b fb [] = b
+  helper b fb (n:ns)
+    | fb > fn = helper b fb ns
+    | otherwise = helper n fn ns where
+        fn = f n
 
 fibs :: (Integral n) => [n]
 fibs = 1:1: (zipWith (+) (tail fibs) fibs)
