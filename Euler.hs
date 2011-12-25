@@ -34,7 +34,6 @@ dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes whe
       | and [divs p x, (div p x) > 99] = True
       | otherwise = helper (x-1)
 
-
 dispatch 5 = print $ foldr lcm 1 [1..20]
 
 dispatch 6 = print $ (square $ sum [1..100]) - (sum $ map square [1..100])
@@ -58,8 +57,6 @@ dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
 
   makeNum :: Char -> Int
   makeNum c = read [c]
-
-
 
 dispatch 9 = print $ threeProd $ head $ goodTrips where
   goodTrips = filter isPythagorean $ enumerateDecTripletsSumming 1000
