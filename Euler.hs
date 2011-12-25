@@ -225,6 +225,13 @@ dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
   nines = 1:(map helper [1..])
   helper n = (pow 10 n) - 1
 
+dispatch 27 = print $ (first result) * (second result) where
+  lengthPrimes = length . takeWhile isPrime
+  quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
+  result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
+  enumerateQuads = foldr (++) [] $ map helper [-999..999]
+  helper a = map (\b -> (a,b)) [-999..999]
+
 main = do
   args <- getArgs
   dispatch $ read $ args !! 0
