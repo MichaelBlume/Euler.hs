@@ -1,5 +1,6 @@
 module Primes
 ( primes
+, isPrime
 ) where
 
 import Onelines
@@ -7,7 +8,9 @@ import Onelines
 
 isPrime :: (Integral a) => a -> Bool
 isPrime 2 = True
-isPrime x = not $ any (divs x) $ primesBelowSqrt x
+isPrime x
+  | x < 2 = False
+  | otherwise = not $ any (divs x) $ primesBelowSqrt x
 
 primesBelowSqrt :: (Integral a) => a -> [a]
 primesBelowSqrt square = pbHelp primeMap where
