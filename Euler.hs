@@ -240,6 +240,8 @@ dispatch 27 = print $ (fst result) * (snd result) where
   enumerateQuads = foldr (++) [] $ map helper [-999..999]
   helper a = map (\b -> (a,b)) [-999..999]
 
+dispatch x = putStrLn "Mike hasn't done that one yet."
+
 main = do
   args <- getArgs
   dispatch $ read $ args !! 0
