@@ -45,6 +45,7 @@ dispatch 7 = print result where
 
 dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
   getBigStr = do
+    putStrLn "Paste in the big digit-string"
     lines <- getLines
     return $ foldr (++) "" lines
 
