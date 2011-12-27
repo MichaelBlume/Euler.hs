@@ -112,10 +112,11 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
   goodRange full length (-1) = [length-1..full-1]
   goodRange full length 1 = [0..full-length]
 
+  zip :: a -> b -> (a,b)
+  zip a b = (a,b)
+
   zipCombs :: [a] -> [b] -> [(a,b)]
-  zipCombs l1 l2 = foldr (++) [] $ map helper1 l2 where
-    helper1 n2 = map helper2 l1 where
-      helper2 n1 = (n1, n2)
+  zipCombs = biMap zip
 
 dispatch 12 = print $ bigTrigWithNDivs 501 where
 
