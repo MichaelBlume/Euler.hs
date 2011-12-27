@@ -218,7 +218,7 @@ dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
 
   atLeast n = dropWhile (<n)
 
-dispatch 24 = putStrLn $ (perms "0123456789") !! 999999 where
+dispatch 24 = putStrLn $ (perms ['0'..'9']) !! 999999 where
   perms :: (Eq a) => [a] -> [[a]]
   perms [] = [[]]
   perms l= foldr (++) [] $ map (permsNFirst l) l where
