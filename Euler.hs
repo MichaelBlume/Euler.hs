@@ -247,6 +247,15 @@ dispatch 29 = print $ numDistincts $ biMap pow [2..100] [2..100] where
     numDistincts (n:ns) = 1 + (numDistincts rem) where
       rem = filter (/=n) ns
 
+dispatch 30 = print $ sum $ myFilter $ [2..500000] where
+  myFilter :: [Int] -> [Int]
+  myFilter = filter $ isFixed $ sumNPowDigs 5
+
+  isFixed :: (Eq a) => (a -> a) -> a -> Bool
+  isFixed f a = (f a) == a
+
+  sumNPowDigs n = sum . map (flip pow n) . map (\n -> read [n]) . show
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
