@@ -241,6 +241,12 @@ dispatch 27 = print $ (fst result) * (snd result) where
   enumerateQuads = foldr (++) [] $ map helper [-999..999]
   helper a = map (\b -> (a,b)) [-999..999]
 
+dispatch 29 = print $ numDistincts $ biMap pow [2..100] [2..100] where
+    numDistincts :: (Eq a, Integral b) => [a] -> b
+    numDistincts [] = 0
+    numDistincts (n:ns) = 1 + (numDistincts rem) where
+      rem = filter (/=n) ns
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
