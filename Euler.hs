@@ -47,7 +47,7 @@ dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
   getBigStr = do
     putStrLn "Paste in the big digit-string"
     lines <- getLines
-    return $ foldr (++) "" lines
+    return $ concat lines
 
   biggestProductIn :: Int -> String -> Int
   biggestProductIn n = maximum . map product . subLists n . map makeNum
@@ -85,7 +85,7 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
 
   getBiggestProduct length grid = maximum $ map product $ enumerateLines length grid
 
-  enumerateLines length grid = foldr (++) [] sublists where
+  enumerateLines length grid = concat sublists where
     sublists = map (linesForDir grid length) enumerateDirs
 
   enumerateDirs = [(1,0), (0,1), (1,1), (-1,1)]
@@ -221,7 +221,7 @@ dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
 dispatch 24 = putStrLn $ (perms ['0'..'9']) !! 999999 where
   perms :: (Eq a) => [a] -> [[a]]
   perms [] = [[]]
-  perms l= foldr (++) [] $ map (permsNFirst l) l where
+  perms l= concat $ map (permsNFirst l) l where
     permsNFirst l n = map (n:) $ perms $ filter (/=n) l
 
 dispatch 25 = print $ 1 + (length smallFibs) where
@@ -238,7 +238,7 @@ dispatch 27 = print $ (fst result) * (snd result) where
   lengthPrimes = length . takeWhile isPrime
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
   result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
-  enumerateQuads = foldr (++) [] $ map helper [-999..999]
+  enumerateQuads = concat $ map helper [-999..999]
   helper a = map (\b -> (a,b)) [-999..999]
 
 dispatch 29 = print $ numDistincts $ biMap pow [2..100] [2..100] where

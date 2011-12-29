@@ -15,7 +15,7 @@ import Primes
 import Onelines
 
 biMap :: (a -> b -> c) -> [a] -> [b] -> [c]
-biMap f l1 l2 = foldr (++) [] $ map helper l1 where
+biMap f l1 l2 = concat $ map helper l1 where
   helper n1 = map (f n1) l2
 
 maximizeFunc :: (Ord b) => (a -> b) -> [a] -> a
