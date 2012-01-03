@@ -61,14 +61,6 @@ primeFactorization = helper primes where
     | divs n fp = fp:(helper ps (div n fp))
     | otherwise = helper rp n
 
-pack :: (Eq x) => [x] -> [[x]]
-pack l = packHelp l [] where
-    packHelp [] l = [l]
-    packHelp (next:rst) [] = packHelp rst [next]
-    packHelp (next:rst) (last:more)
-        | next == last = packHelp rst (last:last:more)
-        | otherwise = ((last:more):packHelp rst [next])
-
 encodeDirect :: (Eq x, Integral y) => [x] -> [(y, x)]
 encodeDirect [] = []
 encodeDirect (first:rst) = encodeDirectHelper (1, first) rst where 
