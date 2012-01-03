@@ -56,9 +56,9 @@ split s (h:t)
 primeFactorization :: Int -> [Int]
 primeFactorization = helper primes where
   helper _ 1 = []
-  helper (fp:rp) n
+  helper ps@(fp:rp) n
     | fp * fp > n = [n]
-    | divs n fp = fp:(helper (fp:rp) (div n fp))
+    | divs n fp = fp:(helper ps (div n fp))
     | otherwise = helper rp n
 
 pack :: (Eq x) => [x] -> [[x]]
