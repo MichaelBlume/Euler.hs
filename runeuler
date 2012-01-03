@@ -1,0 +1,3 @@
+#! /bin/bash
+ghc -O2 -o euler -fspec-constr-count=1000 Euler.hs
+time ./euler $1
