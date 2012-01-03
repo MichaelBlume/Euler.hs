@@ -1,4 +1,5 @@
 import System.Environment
+import Control.Applicative
 import Data.Char
 import Data.List
 
@@ -101,7 +102,7 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
     rest = getVec grid (length-1) (dx, dy) (sx+dx, sy+dy)
 
   goodCoords :: [[Int]] -> Int -> (Int, Int) -> [(Int, Int)]
-  goodCoords grid mag (dx,dy) = zipCombs xr yr where
+  goodCoords grid mag (dx,dy) = zip <$> xr <*> yr where
     xr = goodRange width mag dx
     yr = goodRange height mag dy
     width = length grid
@@ -114,9 +115,6 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
 
   zip :: a -> b -> (a,b)
   zip a b = (a,b)
-
-  zipCombs :: [a] -> [b] -> [(a,b)]
-  zipCombs = biMap zip
 
 dispatch 12 = print $ bigTrigWithNDivs 501 where
 
@@ -241,7 +239,7 @@ dispatch 27 = print $ (fst result) * (snd result) where
   enumerateQuads = concat $ map helper [-999..999]
   helper a = map (\b -> (a,b)) [-999..999]
 
-dispatch 29 = print $ numDistincts $ biMap pow [2..100] [2..100] where
+dispatch 29 = print $ numDistincts $ pow <$> [2..100] <*> [2..100] where
     numDistincts :: (Eq a, Integral b) => [a] -> b
     numDistincts [] = 0
     numDistincts (n:ns) = 1 + (numDistincts rem) where
