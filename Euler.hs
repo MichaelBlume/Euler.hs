@@ -227,7 +227,7 @@ dispatch 25 = print $ 1 + (length smallFibs) where
   smallFibs = under bigNum fibs
 
 dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
-  firstDivisor n = head $ filter ((flip divs) n) bigDivs
+  firstDivisor n = head $ filter (`divs` n) bigDivs
   bigDivs = map (\n -> n * 1024 * 3125) nines
   nines = 1:(map helper [1..])
   helper n = (pow 10 n) - 1
@@ -252,7 +252,7 @@ dispatch 30 = print $ sum $ myFilter $ [2..500000] where
   isFixed :: (Eq a) => (a -> a) -> a -> Bool
   isFixed f a = (f a) == a
 
-  sumNPowDigs n = sum . map (flip pow n) . map (\n -> read [n]) . show
+  sumNPowDigs n = sum . map (`pow` n) . map (\n -> read [n]) . show
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
