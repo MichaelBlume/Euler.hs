@@ -233,11 +233,10 @@ dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
   helper n = (pow 10 n) - 1
 
 dispatch 27 = print $ (fst result) * (snd result) where
+  result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
   lengthPrimes = length . takeWhile isPrime
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
-  result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
-  enumerateQuads = concat $ map helper [-999..999]
-  helper a = map (\b -> (a,b)) [-999..999]
+  enumerateQuads = pair <$> [-999..999] <*> [-999..999]
 
 dispatch 29 = print $ numDistincts $ pow <$> [2..100] <*> [2..100] where
     numDistincts :: (Eq a, Integral b) => [a] -> b
