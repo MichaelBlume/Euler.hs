@@ -62,11 +62,8 @@ primeFactorization = helper primes where
     | otherwise = helper rp n
 
 encodeDirect :: (Eq x, Integral y) => [x] -> [(y, x)]
-encodeDirect [] = []
-encodeDirect (first:rst) = encodeDirectHelper (1, first) rst where 
-    encodeDirectHelper (count, current) [] = [(count, current)]
-    encodeDirectHelper (count, current) (first:rst)
-        | current == first = 
-            encodeDirectHelper (count + 1, current) rst
-        | otherwise = 
-            (count, current):(encodeDirectHelper (1, first) rst)
+encodeDirect = foldr stepper [] where
+  stepper x [] = [(1,x)]
+  stepper x ps@((n,el):rp)
+    | x == el = (n+1,x):rp
+    | otherwise = (1,x):ps
