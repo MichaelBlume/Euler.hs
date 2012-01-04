@@ -95,9 +95,9 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
 
   getVec :: [[Int]] -> Int -> (Int, Int) -> (Int, Int) -> [Int]
   getVec _ 0 _ _ = []
-  getVec grid length (dx, dy) (sx, sy) = (currNum:rest) where
+  getVec grid length d@(dx, dy) (sx, sy) = (currNum:rest) where
     currNum = grid !! sx !! sy
-    rest = getVec grid (length-1) (dx, dy) (sx+dx, sy+dy)
+    rest = getVec grid (length-1) d (sx+dx, sy+dy)
 
   goodCoords :: [[Int]] -> Int -> (Int, Int) -> [(Int, Int)]
   goodCoords grid mag (dx,dy) = zip <$> xr <*> yr where
