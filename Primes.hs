@@ -3,7 +3,7 @@ module Primes
 , isPrime
 ) where
 
-import Onelines
+import Onelines (divs)
 
 
 isPrime :: (Integral a) => a -> Bool

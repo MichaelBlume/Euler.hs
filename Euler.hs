@@ -1,12 +1,13 @@
-import System.Environment
-import Control.Applicative
-import Data.Char
-import Data.List
+import System.Environment (getArgs)
+import Control.Applicative ((<$>), (<*>))
+import Data.Char (ord)
+import Data.List (foldl', sort)
 
-import Primes
-import Helpers
-import IOHelpers
-import Onelines
+import Primes (primes, isPrime)
+import Helpers (pow, maximizeFunc, sumProDivs, primeFactorization, fibs,
+                split, encodeDirect, sumDigs)
+import IOHelpers (getAndProcess, getIntGrid, getLines)
+import Onelines (divs, under, pair, square)
 
 dispatch :: Int -> IO ()
 dispatch 1 = print $ sum $ filter divThreeOrFive $ [0..999] where

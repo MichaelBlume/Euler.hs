@@ -4,7 +4,7 @@ module IOHelpers
 , getAndProcess
 ) where
 
-import Helpers
+import Helpers (split)
 
 getIntGrid = do
   putStrLn "Paste the big grid, then blank line"

@@ -9,9 +9,10 @@ module Helpers
 , maximizeFunc
 ) where
 
-import Control.Applicative
-import Primes
-import Onelines
+import Control.Applicative ((<$>), (<*>))
+
+import Primes (primes)
+import Onelines (divs)
 
 maximizeFunc :: (Ord b) => (a -> b) -> [a] -> a
 maximizeFunc f [] = error "empty list"
