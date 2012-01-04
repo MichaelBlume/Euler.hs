@@ -106,13 +106,14 @@ dispatch 11 = getAndProcess getIntGrid $ getBiggestProduct 4 where
     width = length grid
     height = length $ grid !! 0
 
+    zip :: a -> b -> (a,b)
+    zip a b = (a,b)
+
   goodRange :: Int -> Int -> Int -> [Int]
   goodRange full length 0 = [0..full-1]
   goodRange full length (-1) = [length-1..full-1]
   goodRange full length 1 = [0..full-length]
 
-  zip :: a -> b -> (a,b)
-  zip a b = (a,b)
 
 dispatch 12 = print $ bigTrigWithNDivs 501 where
 
@@ -181,13 +182,16 @@ dispatch 21 = print $ sum $ filter amicable [1..9999] where
     m = sumProDivs n
 
 dispatch 22 = getAndProcess getContents totalFromText where
+
+  totalFromText = sum . map scoreNameTuple . enumerate . sort . namesFromText
+
+  namesFromText :: String -> [String]
+  namesFromText = everyOther . tail . split '"'
+
   everyOther :: [a] -> [a]
   everyOther [] = []
   everyOther (a:[]) = [a]
   everyOther (a:b:rst) = a:(everyOther rst)
-
-  namesFromText :: String -> [String]
-  namesFromText = everyOther . tail . split '"'
 
   enumerate :: [a] -> [(Int, a)]
   enumerate = helper 0 where
@@ -202,7 +206,6 @@ dispatch 22 = getAndProcess getContents totalFromText where
 
   scoreNameTuple (a, name) = (a + 1) * (scoreName name)
 
-  totalFromText = sum . map scoreNameTuple . enumerate . sort . namesFromText
 
 dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
   isAbundant n = n < (sumProDivs n)
