@@ -26,18 +26,16 @@ maximizeFunc f (n:ns) = helper n (f n) ns where
 fibs :: (Integral n) => [n]
 fibs = 1:1: (zipWith (+) (tail fibs) fibs)
 
-allProds a b = (*) <$> a <*> b
-
-nonDetProduct = foldr allProds [1]
-
-getPows (n,b) = map (pow b) [0..n]
-
-allDivs = nonDetProduct . (map getPows) . encodeDirect . primeFactorization
 
 sumProDivs = (myData !!) where
-myData = map helper [0..]
-helper 0 = 0
-helper n = (sum $ allDivs n) - n
+  myData = map helper [0..]
+  helper 0 = 0
+  helper n = (sum $ allDivs n) - n
+
+  allDivs = nonDetProduct . (map getPows) . encodeDirect . primeFactorization where
+    nonDetProduct = foldr allProds [1]
+    allProds a b = (*) <$> a <*> b
+    getPows (n,b) = map (pow b) [0..n]
 
 sumDigs :: (Integral i) => i -> Int
 sumDigs = sum . map (\n -> read [n]) . show
