@@ -158,9 +158,64 @@ dispatch 15 = print $ countPaths 20 20 where
     countPathsMan _ 0 = 1
     countPathsMan a b = (countPaths (a-1) b) + (countPaths a (b-1))
 
-
 dispatch 16 = print $ sumDigs $ pow 2 1000
 
+dispatch 17 = print $ sum $ map lettersInNumber [1..1000] where
+
+  lettersInNumber :: Int -> Int
+  lettersInNumber = length . filter (not . (`elem` " -")) . numberToText
+
+  numberToText :: Int -> String
+  numberToText = ntt where
+    ntt 0 = "zero"
+    ntt 1 = "one"
+    ntt 2 = "two"
+    ntt 3 = "three"
+    ntt 4 = "four"
+    ntt 5 = "five"
+    ntt 6 = "six"
+    ntt 7 = "seven"
+    ntt 8 = "eight"
+    ntt 9 = "nine"
+    ntt 10 = "ten"
+    ntt 11 = "eleven"
+    ntt 12 = "twelve"
+    ntt 13 = "thirteen"
+    ntt 15 = "fifteen"
+    ntt 18 = "eighteen"
+    ntt x | x < 20 = ntt (x - 10) ++ "teen"
+    ntt 20 = "twenty"
+    ntt 30 = "thirty"
+    ntt 40 = "forty"
+    ntt 50 = "fifty"
+    ntt 60 = "sixty"
+    ntt 70 = "seventy"
+    ntt 80 = "eighty"
+    ntt 90 = "ninety"
+    ntt x | x < 100 = major ++ minor remn where
+      major :: String
+      major = ntt (x - remn)
+
+      minor :: Int -> String
+      minor 0 = ""
+      minor x = '-':ntt x
+
+      remn :: Int
+      remn = x `rem` 10
+    ntt x = helper x mydata where
+      mydata = [(pow 10 12, "trillion"), (pow 10 9, "billion"),
+                (pow 10 6, "million"), (1000, "thousand"), (100, "hundred")]
+
+      helper x [] = ntt x
+      helper x ((num, name):ps)
+        | x < num = helper x ps
+        | otherwise = major ++ minor remn where
+            major = (ntt $ div x num) ++ ' ':name
+            minor 0 = ""
+            minor x
+              | num == 100 = " and " ++ ntt x
+              | otherwise = ' ':ntt x
+            remn = x `rem` num
 
 dispatch 18 = getAndProcess getIntGrid maxPath where
   nextSums :: [Int] -> [Int] -> [Int]
