@@ -312,6 +312,19 @@ dispatch 30 = print $ sum $ myFilter $ [2..500000] where
 
   sumNPowDigs n = sum . map (`pow` n) . map (\n -> read [n]) . show
 
+dispatch 31 = print $ waysToMakeEng 200 where
+
+  waysToMakeEng = waysToMake [200, 100, 50, 20, 10, 5, 2, 1]
+
+  waysToMake :: [Int] -> Int -> Int
+  waysToMake _ x | x < 0 = 0
+  waysToMake _ 0 = 1
+  waysToMake [] _ = 0
+  waysToMake [1] _ = 1
+  waysToMake cs@(c:rcs) x = withFirst + withoutFirst where
+    withFirst = waysToMake cs (x-c)
+    withoutFirst = waysToMake rcs x
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
