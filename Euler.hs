@@ -6,7 +6,7 @@ import Data.Char (ord)
 import Data.List (foldl', sort)
 
 import Primes (primes, isPrime)
-import Helpers (pow, maximizeFunc, sumProDivs, primeFactorization, fibs,
+import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs,
                 split, encodeDirect, sumDigs, digs)
 import IOHelpers (getAndProcess, getIntGrid, getLines)
 import Onelines (divs, under, pair, square)
@@ -158,7 +158,7 @@ dispatch 15 = print $ countPaths 20 20 where
     countPathsMan _ 0 = 1
     countPathsMan a b = (countPaths (a-1) b) + (countPaths a (b-1))
 
-dispatch 16 = print $ sumDigs $ pow 2 1000
+dispatch 16 = print $ sumDigs $ 2 ^ 1000
 
 dispatch 17 = print $ sum $ map lettersInNumber [1..1000] where
 
@@ -203,8 +203,8 @@ dispatch 17 = print $ sum $ map lettersInNumber [1..1000] where
       remn :: Int
       remn = x `rem` 10
     ntt x = helper x mydata where
-      mydata = [(pow 10 12, "trillion"), (pow 10 9, "billion"),
-                (pow 10 6, "million"), (1000, "thousand"), (100, "hundred")]
+      mydata = [(10 ^ 12, "trillion"), (10 ^ 9, "billion"),
+                (10 ^ 6, "million"), (1000, "thousand"), (100, "hundred")]
 
       helper x [] = ntt x
       helper x ((num, name):ps)
@@ -282,14 +282,14 @@ dispatch 24 = putStrLn $ (perms ['0'..'9']) !! 999999 where
     permsNFirst l n = map (n:) $ perms $ filter (/=n) l
 
 dispatch 25 = print $ 1 + (length smallFibs) where
-  bigNum = pow 10 999
+  bigNum = 10 ^ 999
   smallFibs = under bigNum fibs
 
 dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
   firstDivisor n = head $ filter (`divs` n) bigDivs
   bigDivs = map (\n -> n * 1024 * 3125) nines
   nines = 1:(map helper [1..])
-  helper n = (pow 10 n) - 1
+  helper n = (10 ^ n) - 1
 
 dispatch 27 = print $ (fst result) * (snd result) where
   result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
@@ -297,7 +297,7 @@ dispatch 27 = print $ (fst result) * (snd result) where
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
   enumerateQuads = pair <$> [-999..999] <*> [-999..999]
 
-dispatch 29 = print $ numDistincts $ pow <$> [2..100] <*> [2..100] where
+dispatch 29 = print $ numDistincts $ (^) <$> [2..100] <*> [2..100] where
     numDistincts :: (Eq a, Integral b) => [a] -> b
     numDistincts [] = 0
     numDistincts (n:ns) = 1 + (numDistincts rem) where
@@ -310,7 +310,7 @@ dispatch 30 = print $ sum $ myFilter $ [2..500000] where
   isFixed :: (Eq a) => (a -> a) -> a -> Bool
   isFixed f a = (f a) == a
 
-  sumNPowDigs n = sum . map (`pow` n) . map (\n -> read [n]) . show
+  sumNPowDigs n = sum . map (^ n) . map (\n -> read [n]) . show
 
 dispatch 31 = print $ waysToMakeEng 200 where
 

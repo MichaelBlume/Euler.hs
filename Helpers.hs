@@ -2,7 +2,6 @@ module Helpers
 ( encodeDirect
 , primeFactorization
 , split
-, pow
 , digs
 , sumDigs
 , sumProDivs
@@ -35,18 +34,13 @@ sumProDivs = memoizeF helper where
   allDivs = nonDetProduct . (map getPows) . encodeDirect . primeFactorization where
     nonDetProduct = foldr allProds [1]
     allProds a b = (*) <$> a <*> b
-    getPows (n,b) = map (pow b) [0..n]
+    getPows (n,b) = map (b ^) [0..n]
 
 sumDigs :: (Integral i) => i -> Int
 sumDigs = sum . digs
 
 digs :: (Integral i) => i -> [Int]
 digs = map (\n -> read [n]) . show
-
-pow _ 0 = 1
-pow a b
-  | divs b 2 = pow (a*a) (div b 2)
-  | otherwise = a * (pow a (b-1))
 
 split :: (Eq a) => a -> [a] -> [[a]]
 split _ [] = [[]]
