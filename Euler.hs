@@ -7,7 +7,7 @@ import Data.List (foldl', sort)
 
 import Primes (primes, isPrime)
 import Helpers (pow, maximizeFunc, sumProDivs, primeFactorization, fibs,
-                split, encodeDirect, sumDigs)
+                split, encodeDirect, sumDigs, digs)
 import IOHelpers (getAndProcess, getIntGrid, getLines)
 import Onelines (divs, under, pair, square)
 
@@ -324,6 +324,14 @@ dispatch 31 = print $ waysToMakeEng 200 where
   waysToMake cs@(c:rcs) x = withFirst + withoutFirst where
     withFirst = waysToMake cs (x-c)
     withoutFirst = waysToMake rcs x
+
+dispatch 34 = print $ sum $ filter isCurious $ [3..2540161] where
+  isCurious = isID $ sum . map factorial . digs
+
+  isID f n = n == (f n)
+
+  factorial 0 = 1
+  factorial n = (*n) $ factorial $ n - 1
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
