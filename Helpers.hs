@@ -3,6 +3,7 @@ module Helpers
 , primeFactorization
 , split
 , pow
+, digs
 , sumDigs
 , sumProDivs
 , fibs
@@ -37,7 +38,10 @@ sumProDivs = memoizeF helper where
     getPows (n,b) = map (pow b) [0..n]
 
 sumDigs :: (Integral i) => i -> Int
-sumDigs = sum . map (\n -> read [n]) . show
+sumDigs = sum . digs
+
+digs :: (Integral i) => i -> [Int]
+digs = map (\n -> read [n]) . show
 
 pow _ 0 = 1
 pow a b
