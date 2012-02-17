@@ -333,6 +333,12 @@ dispatch 34 = print $ sum $ filter isCurious $ [3..2540161] where
   factorial 0 = 1
   factorial n = (*n) $ factorial $ n - 1
 
+dispatch 35 = print $ length $ filter circular $ under 1000000 primes where
+  circular = all isPrime . tail . rotationsN
+  rotationsN = map read . rotations . show
+  rotations xs = take l $ map (take l) $ iterate tail $ cycle xs where
+    l = length xs
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
