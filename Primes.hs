@@ -4,13 +4,15 @@ module Primes
 ) where
 
 import Onelines (divs)
+import Memoize (memoizeF)
 
 
 isPrime :: (Integral a) => a -> Bool
-isPrime 2 = True
-isPrime x
-  | x < 2 = False
-  | otherwise = not $ any (divs x) $ primesBelowSqrt x
+isPrime = memoizeF helper where
+  helper 2 = True
+  helper x
+    | x < 2 = False
+    | otherwise = not $ any (divs x) $ primesBelowSqrt x
 
 primesBelowSqrt :: (Integral a) => a -> [a]
 primesBelowSqrt square = pbHelp primeMap where
