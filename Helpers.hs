@@ -7,6 +7,8 @@ module Helpers
 , sumProDivs
 , fibs
 , maximizeFunc
+, isFixed
+, factorial
 ) where
 
 import Control.Applicative ((<$>), (<*>))
@@ -14,6 +16,14 @@ import Control.Applicative ((<$>), (<*>))
 import Primes (primes)
 import Onelines (divs)
 import Memoize (memoizeF)
+
+factorial :: (Integral i) => i -> i
+factorial = memoizeF helper where
+  helper 0 = 1
+  helper n = (*n) $ factorial $ n - 1
+
+isFixed :: (Eq a) => (a -> a) -> a -> Bool
+isFixed f a = (f a) == a
 
 maximizeFunc :: (Ord b) => (a -> b) -> [a] -> a
 maximizeFunc f [] = error "empty list"

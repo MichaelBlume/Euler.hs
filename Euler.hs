@@ -6,8 +6,8 @@ import Data.Char (ord)
 import Data.List (foldl', sort)
 
 import Primes (primes, isPrime)
-import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs,
-                split, encodeDirect, sumDigs, digs)
+import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs
+               ,isFixed, split, encodeDirect, sumDigs, digs, factorial)
 import IOHelpers (getAndProcess, getIntGrid, getLines)
 import Onelines (divs, under, pair, square)
 
@@ -229,10 +229,7 @@ dispatch 18 = getAndProcess getIntGrid maxPath where
   maxPath :: [[Int]] -> Int
   maxPath = maximum . lastRowSums
 
-dispatch 20 = print $ sumDigs $ facto 100 where
-  facto 0 = 1
-  facto 1 = 1
-  facto n = n * (facto (n-1))
+dispatch 20 = print $ sumDigs $ factorial 100 where
 
 dispatch 21 = print $ sum $ filter amicable [1..9999] where
 
@@ -307,9 +304,6 @@ dispatch 30 = print $ sum $ myFilter $ [2..500000] where
   myFilter :: [Int] -> [Int]
   myFilter = filter $ isFixed $ sumNPowDigs 5
 
-  isFixed :: (Eq a) => (a -> a) -> a -> Bool
-  isFixed f a = (f a) == a
-
   sumNPowDigs n = sum . map (^ n) . map (\n -> read [n]) . show
 
 dispatch 31 = print $ waysToMakeEng 200 where
@@ -326,12 +320,7 @@ dispatch 31 = print $ waysToMakeEng 200 where
     withoutFirst = waysToMake rcs x
 
 dispatch 34 = print $ sum $ filter isCurious $ [3..2540161] where
-  isCurious = isID $ sum . map factorial . digs
-
-  isID f n = n == (f n)
-
-  factorial 0 = 1
-  factorial n = (*n) $ factorial $ n - 1
+  isCurious = isFixed $ sum . map factorial . digs
 
 dispatch 35 = print $ length $ filter circular $ under 1000000 primes where
   circular = all isPrime . tail . rotationsN
