@@ -361,6 +361,7 @@ dispatch 38 = print $ maximum panDigitals where
   panDigitals :: [Int]
   panDigitals = map read $ filter panDigital $ filter ((==9) . length) $ candidates
 
+--TIME: 1.6s
 dispatch 39 = print $ maxOn numSols [5..1000] where
   numSols = length . pythagsSumming
   decorate f = map (\n -> (f n, n))
