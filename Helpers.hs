@@ -42,7 +42,7 @@ sumProDivs = memoizeF helper where
   helper 0 = 0
   helper n = (sum $ allDivs n) - n
 
-  allDivs = nonDetProduct . (map getPows) . encodeDirect . primeFactorization where
+  allDivs = nonDetProduct . map getPows . encodeDirect . primeFactorization where
     nonDetProduct = foldr allProds [1]
     allProds a b = (*) <$> a <*> b
     getPows (n,b) = map (b ^) [0..n]
