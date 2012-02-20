@@ -3,7 +3,7 @@ module Main (main) where
 import System.Environment (getArgs)
 import Control.Applicative ((<$>), (<*>))
 import Data.Char (ord)
-import Data.List (sort)
+import Data.List (sort, nub)
 
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
@@ -289,11 +289,7 @@ dispatch 27 = print $ (fst result) * (snd result) where
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
   enumerateQuads = pair <$> [-999..999] <*> [-999..999]
 
-dispatch 29 = print $ numDistincts $ (^) <$> [2..100] <*> [2..100] where
-    numDistincts :: (Eq a, Integral b) => [a] -> b
-    numDistincts [] = 0
-    numDistincts (n:ns) = 1 + (numDistincts rem) where
-      rem = filter (/=n) ns
+dispatch 29 = print $ length $ nub $ (^) <$> [2..100] <*> [2..100]
 
 --TIME: 14s
 dispatch 30 = print $ sum $ myFilter $ [2..500000] where
