@@ -3,7 +3,8 @@ module Main (main) where
 import System.Environment (getArgs)
 import Control.Applicative ((<$>), (<*>))
 import Data.Char (ord)
-import Data.List (sort, nub)
+import Data.List (sort, inits, tails, nub, delete)
+import Data.Function (on)
 
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
@@ -341,6 +342,23 @@ dispatch 36 = print $ sum $ filter isTwoTenPal [0..999999] where
   isPalindrome = isFixed reverse
 
   isTwoTenPal x = and [isPalindrome $ binarize x, isPalindrome $ show x]
+
+--TIME: 10s
+dispatch 37 = print $ sum $ take 11 $ filter truncateable bigPrimes where
+
+  bigPrimes = dropWhile (<10) primes
+
+  truncateable :: Int -> Bool
+  truncateable = all isPrime . frags
+
+  frags = map read . applyBothWith assemble inits tails . show
+
+  dropEnd = delete []
+
+  assemble = on (++) dropEnd
+
+  applyBothWith :: (b -> c -> d) -> (a -> b) -> (a -> c) -> a -> d
+  applyBothWith c f g x = c (f x) (g x)
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
