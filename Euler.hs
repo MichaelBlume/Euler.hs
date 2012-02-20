@@ -345,6 +345,8 @@ dispatch 36 = print $ sum $ filter isTwoTenPal [0..999999] where
 
   isTwoTenPal x = and [isPalindrome $ binarize x, isPalindrome $ show x]
 
+dispatch 67 = getAndProcess takeIntGrid maxPath
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
