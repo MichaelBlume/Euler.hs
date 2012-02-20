@@ -20,10 +20,10 @@ import Onelines (divs)
 import Memoize (memoizeF)
 
 factorial :: (Integral i) => i -> i
-factorial = helper where
-  helper 0 = 1
-  helper n = (*n) $ factorial $ n - 1
-  fail = error "div by 0"
+factorial  0 = 1
+factorial n 
+  | n < 0 = error "div by 0"
+  | otherwise = (*n) $ factorial $ n - 1
 
 isFixed :: (Eq a) => (a -> a) -> a -> Bool
 isFixed f a = (f a) == a
@@ -51,11 +51,10 @@ fibs :: (Integral n) => [n]
 fibs = 1:1: (zipWith (+) (tail fibs) fibs)
 
 
-sumProDivs = memoizeF helper fail where
-  helper 0 = 0
-  helper n = (sum $ allDivs n) - n
-
-  fail = error "no sensible <0 answer"
+sumProDivs 0 = 0
+sumProDivs n 
+  | n < 0 = error "negative argument"
+  | otherwise = (sum $ allDivs n) - n where
 
   allDivs = nonDetProduct . map getPows . encodeDirect . primeFactorization where
     nonDetProduct = foldr allProds [1]
