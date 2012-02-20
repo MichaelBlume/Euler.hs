@@ -2,6 +2,7 @@ import Test.QuickCheck
 import Helpers
 import Primes
 import Onelines
+import Data.List(intercalate)
 
 testFibs :: [Int]
 testFibs = fibs
@@ -12,8 +13,7 @@ prop_fibs n = (n >= 0) ==> (n < 2000) ==> helper n where
 
 
 join :: a -> [[a]] -> [a]
-join x = foldr1 folder where
-  folder a b = a ++ [x] ++ b
+join x = intercalate [x]
 
 is_id :: (Eq a) => (a -> a) -> a -> Bool
 is_id f n = n == (f n)
