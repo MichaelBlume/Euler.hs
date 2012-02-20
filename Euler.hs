@@ -363,7 +363,8 @@ dispatch 38 = print $ maximum panDigitals where
 
 dispatch 39 = print $ maxOn numSols [5..1000] where
   numSols = length . pythagsSumming
-  maxOn key = maximumBy (compare `on` key)
+  decorate f = map (\n -> (f n, n))
+  maxOn key = snd . maximumBy (compare `on` fst) . decorate key
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
