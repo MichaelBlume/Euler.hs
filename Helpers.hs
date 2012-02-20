@@ -11,15 +11,29 @@ module Helpers
 , factorial
 , maxPath
 , pythagsSumming
+, wordsFromText
+, scoreChar
 ) where
 
 import Control.Applicative ((<$>), (<*>))
 import Data.List (foldl')
+import Data.Char (ord)
 
 import Primes (primes)
 import Onelines (divs)
 import Memoize (memoizeF)
 
+
+scoreChar c = 1 + (ord c) - ordA where
+  ordA = ord 'A'
+
+wordsFromText :: String -> [String]
+wordsFromText = everyOther . tail . split '"' where
+
+  everyOther :: [a] -> [a]
+  everyOther [] = []
+  everyOther (a:[]) = [a]
+  everyOther (a:b:rst) = a:(everyOther rst)
 
 pythagsSumming = filter isPythagorean . enumerateDecTripsSumming where
   enumerateDecTripsSumming :: Int -> [(Int, Int, Int)]

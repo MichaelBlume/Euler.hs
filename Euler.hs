@@ -2,14 +2,13 @@ module Main (main) where
 
 import System.Environment (getArgs)
 import Control.Applicative ((<$>), (<*>))
-import Data.Char (ord)
 import Data.List (sort, inits, tails, nub, delete, maximumBy)
 import Data.Function (on)
 
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
                ,isFixed, split, encodeDirect, sumDigs, digs, factorial
-               ,pythagsSumming)
+               ,pythagsSumming, wordsFromText, scoreChar)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
 
@@ -222,15 +221,7 @@ dispatch 21 = print $ sum $ filter amicable [1..9999] where
 
 dispatch 22 = getAndProcess getContents totalFromText where
 
-  totalFromText = sum . map scoreNameTuple . enumerate . sort . namesFromText
-
-  namesFromText :: String -> [String]
-  namesFromText = everyOther . tail . split '"'
-
-  everyOther :: [a] -> [a]
-  everyOther [] = []
-  everyOther (a:[]) = [a]
-  everyOther (a:b:rst) = a:(everyOther rst)
+  totalFromText = sum . map scoreNameTuple . enumerate . sort . wordsFromText
 
   enumerate :: [a] -> [(Int, a)]
   enumerate = helper 0 where
@@ -240,8 +231,6 @@ dispatch 22 = getAndProcess getContents totalFromText where
   scoreName :: String -> Int
   scoreName = sum . map scoreChar
 
-  ordA = ord 'A'
-  scoreChar c = 1 + (ord c) - ordA
 
   scoreNameTuple (a, name) = (a + 1) * (scoreName name)
 
