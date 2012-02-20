@@ -18,7 +18,7 @@ import Onelines (divs)
 import Memoize (memoizeF)
 
 factorial :: (Integral i) => i -> i
-factorial = memoizeF helper fail where
+factorial = helper where
   helper 0 = 1
   helper n = (*n) $ factorial $ n - 1
   fail = error "div by 0"
