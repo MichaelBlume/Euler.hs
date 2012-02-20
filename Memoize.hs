@@ -13,12 +13,13 @@ iNums = construct 0 1 where
 instance Functor InfiniteTree where
   fmap f (ITree a left right) = ITree (f a) (fmap f left) (fmap f right)
 
-seek :: (Integral i) => InfiniteTree a -> i -> a
-seek (ITree a _ _) 0 = a
-seek (ITree _ l r) n
-  | divs n 2 = seek r $ div n 2 - 1
-  | otherwise = seek l $ div n 2
+seek :: (Integral i) => InfiniteTree a -> a -> i -> a
+seek (ITree a _ _) _ 0 = a
+seek (ITree _ l r) negVal n
+  | n < 0 = negVal
+  | divs n 2 = seek r negVal $ div n 2 - 1
+  | otherwise = seek l negVal $ div n 2
 
-memoizeF :: (Integral n) => (n -> a) -> n -> a
+memoizeF :: (Integral n) => (n -> a) -> a -> n -> a
 memoizeF f = seek myData where
   myData = fmap f iNums

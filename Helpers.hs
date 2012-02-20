@@ -18,9 +18,10 @@ import Onelines (divs)
 import Memoize (memoizeF)
 
 factorial :: (Integral i) => i -> i
-factorial = memoizeF helper where
+factorial = memoizeF helper fail where
   helper 0 = 1
   helper n = (*n) $ factorial $ n - 1
+  fail = error "div by 0"
 
 isFixed :: (Eq a) => (a -> a) -> a -> Bool
 isFixed f a = (f a) == a
@@ -38,9 +39,11 @@ fibs :: (Integral n) => [n]
 fibs = 1:1: (zipWith (+) (tail fibs) fibs)
 
 
-sumProDivs = memoizeF helper where
+sumProDivs = memoizeF helper fail where
   helper 0 = 0
   helper n = (sum $ allDivs n) - n
+
+  fail = error "no sensible <0 answer"
 
   allDivs = nonDetProduct . map getPows . encodeDirect . primeFactorization where
     nonDetProduct = foldr allProds [1]

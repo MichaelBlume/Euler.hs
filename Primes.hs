@@ -8,7 +8,7 @@ import Memoize (memoizeF)
 
 
 isPrime :: (Integral a) => a -> Bool
-isPrime = memoizeF helper where
+isPrime = memoizeF helper False where
   helper 2 = True
   helper x
     | x < 2 = False
