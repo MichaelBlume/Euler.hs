@@ -41,6 +41,7 @@ dispatch 5 = print $ foldr lcm 1 [1..20]
 
 dispatch 6 = print $ (square $ sum [1..100]) - (sum $ map square [1..100])
 
+--TIME: 39s
 dispatch 7 = print result where
   result :: Int
   result = primes !! 10000
@@ -79,6 +80,7 @@ dispatch 9 = print $ threeProd $ head $ goodTrips where
 
   threeProd (a, b, c) = a * b * c
 
+--TIME: >2m
 dispatch 10 = print $ sum $ smallPrimes where
   smallPrimes :: [Int]
   smallPrimes = under 2000000 primes
@@ -139,6 +141,7 @@ dispatch 13 = do
   lines <- getLines
   putStrLn $ (take 10) . show . sum . (map read) $ lines
 
+--TIME: 15s
 dispatch 14 = print $ maximizeFunc collatzLength [1..999999] where
   collatzLength :: Int -> Int
   collatzLength 1 = 1
@@ -262,6 +265,7 @@ dispatch 22 = getAndProcess getContents totalFromText where
   scoreNameTuple (a, name) = (a + 1) * (scoreName name)
 
 
+--TIME: 13s
 dispatch 23 = print $ sum $ filter (not . abundantSum) [1..28123] where
   isAbundant n = n < (sumProDivs n)
 
@@ -288,6 +292,7 @@ dispatch 26 = print $ maximizeFunc firstDivisor [1..1000] where
   nines = 1:(map helper [1..])
   helper n = (10 ^ n) - 1
 
+--TIME: 1m13s
 dispatch 27 = print $ (fst result) * (snd result) where
   result = maximizeFunc (lengthPrimes . quadratics) enumerateQuads
   lengthPrimes = length . takeWhile isPrime
@@ -300,6 +305,7 @@ dispatch 29 = print $ numDistincts $ (^) <$> [2..100] <*> [2..100] where
     numDistincts (n:ns) = 1 + (numDistincts rem) where
       rem = filter (/=n) ns
 
+--TIME: 14s
 dispatch 30 = print $ sum $ myFilter $ [2..500000] where
   myFilter :: [Int] -> [Int]
   myFilter = filter $ isFixed $ sumNPowDigs 5
@@ -319,6 +325,7 @@ dispatch 31 = print $ waysToMakeEng 200 where
     withFirst = waysToMake cs (x-c)
     withoutFirst = waysToMake rcs x
 
+--TIME: 1m30
 dispatch 34 = print $ sum $ filter isCurious $ [3..2540161] where
   isCurious = isFixed $ sum . map factorial . digs
 
