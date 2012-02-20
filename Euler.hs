@@ -336,6 +336,25 @@ dispatch 35 = print $ length $ filter circular $ under 1000000 primes where
   rotations xs = take l $ map (take l) $ iterate tail $ cycle xs where
     l = length xs
 
+dispatch 36 = print $ sum $ filter isTwoTenPal [0..999999] where
+  extractWith :: (a -> Maybe (a, b)) -> a -> [b]
+  extractWith f x = case f x of
+    Nothing -> []
+    Just (x', y) -> y:(extractWith f x')
+
+  peelDigit :: Int -> Maybe (Int, Int)
+  peelDigit 0 = Nothing
+  peelDigit x
+    | divs x 2 = Just (div x 2, 0)
+    | otherwise = Just (div x 2, 1)
+
+  binarize = extractWith peelDigit
+
+  isPalindrome :: (Eq a) => [a] -> Bool
+  isPalindrome = isFixed reverse
+
+  isTwoTenPal x = and [isPalindrome $ binarize x, isPalindrome $ show x]
+
 dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
