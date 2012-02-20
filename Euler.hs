@@ -363,6 +363,28 @@ dispatch 41 = print bigPandigitalPrime where
 
   bigPandigitalPrime = head $ filter panDigital $ filter isPrime [7654321,7654320..1]
 
+dispatch 42 = getAndProcess getContents countTriWords where
+  countTriWords :: String -> Int
+  countTriWords = length . filter triWord . wordsFromText
+
+  triWord :: String -> Bool
+  triWord = triangular . score
+
+  score :: String -> Int
+  score = sum . map scoreChar
+
+  triangular :: Int -> Bool
+  triangular = inSortedList triangles
+
+  inSortedList [] _ = False
+  inSortedList (n:ns) x
+    | x < n = False
+    | x == n = True
+    | otherwise = inSortedList ns x
+
+  triangles = map (\n -> div (n * (n+1)) 2) [1..]
+
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
