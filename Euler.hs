@@ -8,7 +8,7 @@ import Data.List (foldl', sort)
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs
                ,isFixed, split, encodeDirect, sumDigs, digs, factorial)
-import IOHelpers (getAndProcess, getIntGrid, getLines)
+import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
 
 dispatch :: Int -> IO ()
