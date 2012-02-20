@@ -360,6 +360,17 @@ dispatch 37 = print $ sum $ take 11 $ filter truncateable bigPrimes where
   applyBothWith :: (b -> c -> d) -> (a -> b) -> (a -> c) -> a -> d
   applyBothWith c f g x = c (f x) (g x)
 
+dispatch 38 = print $ maximum panDigitals where
+  products x = map (*x) [1..]
+  prodBlobs = map (concat . map show) . inits . products
+  firstCand = head . dropWhile ((<9) . length) . prodBlobs
+  candidates = map firstCand [1..9999]
+
+  panDigital = (=="123456789") . sort . nub
+
+  panDigitals :: [Int]
+  panDigitals = map read $ filter panDigital $ filter ((==9) . length) $ candidates
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
