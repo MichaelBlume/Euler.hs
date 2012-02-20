@@ -322,7 +322,7 @@ dispatch 31 = print $ waysToMakeEng 200 where
 dispatch 34 = print $ sum $ filter isCurious $ [3..2540161] where
   isCurious = isFixed $ sum . map factorial . digs
 
-dispatch 35 = print $ length $ filter circular $ under 1000000 primes where
+dispatch 35 = print $ length $ filter circular $ under 100000 primes where
   circular = all isPrime . tail . rotationsN
   rotationsN = map read . rotations . show
   rotations xs = take l $ map (take l) $ iterate tail $ cycle xs where
