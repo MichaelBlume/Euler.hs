@@ -3,7 +3,7 @@ module Main (main) where
 import System.Environment (getArgs)
 import Control.Applicative ((<$>), (<*>))
 import Data.Char (ord)
-import Data.List (sort, inits, tails, nub, delete)
+import Data.List (sort, inits, tails, nub, delete, maximumBy)
 import Data.Function (on)
 
 import Primes (primes, isPrime)
@@ -360,6 +360,10 @@ dispatch 38 = print $ maximum panDigitals where
 
   panDigitals :: [Int]
   panDigitals = map read $ filter panDigital $ filter ((==9) . length) $ candidates
+
+dispatch 39 = print $ maxOn numSols [5..1000] where
+  numSols = length . pythagsSumming
+  maxOn key = maximumBy (compare `on` key)
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
