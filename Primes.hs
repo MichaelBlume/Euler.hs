@@ -3,7 +3,7 @@ module Primes
 , isPrime
 ) where
 
-import Onelines (divs)
+import Onelines (divs, under)
 import Memoize (memoizeF)
 
 
@@ -15,15 +15,11 @@ isPrime = memoizeF helper where
     | otherwise = not $ any (divs x) $ primesBelowSqrt x
 
 primesBelowSqrt :: (Integral a) => a -> [a]
-primesBelowSqrt square = pbHelp primeMap where
-    pbHelp ((num, prime):rst)
-        | num * num > square = []
-        | not prime = pbHelp rst
-        | otherwise = num:(pbHelp rst)
-
-primeMap :: (Integral a) => [(a, Bool)]
-primeMap = map (\x -> (x, isPrime x)) [2..]
+primesBelowSqrt square = pbHelp primes where
+  pbHelp (p:ps)
+    | p * p > square = []
+    | otherwise = p:(pbHelp ps)
 
 primes :: (Integral a) => [a]
-primes = map fst $ filter snd $ primeMap
+primes = filter isPrime [2..]
 
