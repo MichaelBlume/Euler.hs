@@ -8,7 +8,8 @@ import Data.Function (on)
 
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
-               ,isFixed, split, encodeDirect, sumDigs, digs, factorial)
+               ,isFixed, split, encodeDirect, sumDigs, digs, factorial
+               ,pythagsSumming)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
 
@@ -65,19 +66,8 @@ dispatch 8 = getAndProcess getBigStr $ biggestProductIn 5 where
   makeNum c = read [c]
 
 dispatch 9 = print $ threeProd $ head $ goodTrips where
-  goodTrips = filter isPythagorean $ enumerateDecTripletsSumming 1000
+  goodTrips = pythagsSumming 1000
 
-  enumerateDecTripletsSumming :: Int -> [(Int, Int, Int)]
-  enumerateDecTripletsSumming sum = tripletsBelow sum where
-    tripletsBelow max 
-      | max*3 < sum = []
-      | otherwise = (tripletsStarting max) ++ (tripletsBelow $ max - 1)
-    tripletsStarting a = map makeTrip $ reverse [bottom..top] where
-      bottom = (div (a-1) 2)+1
-      top = min (a-1) (sum-a)
-      makeTrip b = (a, b, sum-a-b)
-
-  isPythagorean (a,b,c) = (a*a) == (b*b) + (c*c)
 
   threeProd (a, b, c) = a * b * c
 

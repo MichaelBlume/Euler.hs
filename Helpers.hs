@@ -10,6 +10,7 @@ module Helpers
 , isFixed
 , factorial
 , maxPath
+, pythagsSumming
 ) where
 
 import Control.Applicative ((<$>), (<*>))
@@ -18,6 +19,25 @@ import Data.List (foldl')
 import Primes (primes)
 import Onelines (divs)
 import Memoize (memoizeF)
+
+
+pythagsSumming = filter isPythagorean . enumerateDecTripsSumming where
+  enumerateDecTripsSumming :: Int -> [(Int, Int, Int)]
+  enumerateDecTripsSumming sum = tripletsBelow sum where
+    tripletsBelow max
+      | max*3 < sum = []
+      | otherwise = (tripletsStarting max) ++ (tripletsBelow $ max - 1)
+    tripletsStarting a = map makeTrip $ reverse [bottom..top] where
+      -- a > b >= c
+      -- a + b + c = sum
+      -- a > b >= sum - a - b > 0
+      -- 2b >= sum - a
+      -- b < sum - a
+      bottom = (div (sum - a) 2) + 1
+      top = min (a-1) (sum - a - 1)
+      makeTrip b = (a, b, sum-a-b)
+
+  isPythagorean (a,b,c) = (a*a) == (b*b) + (c*c)
 
 factorial :: (Integral i) => i -> i
 factorial  0 = 1
