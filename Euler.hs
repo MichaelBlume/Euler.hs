@@ -367,6 +367,13 @@ dispatch 39 = print $ maxOn numSols [5..1000] where
   decorate f = map (\n -> (f n, n))
   maxOn key = snd . maximumBy (compare `on` fst) . decorate key
 
+dispatch 41 = print bigPandigitalPrime where
+  panDigital n = all (`elem` ds) [1..l] where
+    ds = digs n
+    l = length ds
+
+  bigPandigitalPrime = head $ filter panDigital $ filter isPrime [7654321,7654320..1]
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
