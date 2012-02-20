@@ -3,10 +3,10 @@ module Main (main) where
 import System.Environment (getArgs)
 import Control.Applicative ((<$>), (<*>))
 import Data.Char (ord)
-import Data.List (foldl', sort)
+import Data.List (sort)
 
 import Primes (primes, isPrime)
-import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs
+import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
                ,isFixed, split, encodeDirect, sumDigs, digs, factorial)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
@@ -220,17 +220,7 @@ dispatch 17 = print $ sum $ map lettersInNumber [1..1000] where
               | otherwise = ' ':ntt x
             remn = x `rem` num
 
-dispatch 18 = getAndProcess getIntGrid maxPath where
-  nextSums :: [Int] -> [Int] -> [Int]
-  nextSums prevSums newRow = zipWith max leftSums rightSums where
-    leftSums = zipWith (+) (0:prevSums) newRow
-    rightSums = zipWith (+) (prevSums ++ [0]) newRow
-
-  lastRowSums :: [[Int]] -> [Int]
-  lastRowSums = foldl' nextSums []
-
-  maxPath :: [[Int]] -> Int
-  maxPath = maximum . lastRowSums
+dispatch 18 = getAndProcess getIntGrid maxPath
 
 dispatch 20 = print $ sumDigs $ factorial 100 where
 

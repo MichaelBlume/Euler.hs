@@ -9,9 +9,11 @@ module Helpers
 , maximizeFunc
 , isFixed
 , factorial
+, maxPath
 ) where
 
 import Control.Applicative ((<$>), (<*>))
+import Data.List (foldl')
 
 import Primes (primes)
 import Onelines (divs)
@@ -25,6 +27,16 @@ factorial = helper where
 
 isFixed :: (Eq a) => (a -> a) -> a -> Bool
 isFixed f a = (f a) == a
+
+maxPath :: [[Int]] -> Int
+maxPath = maximum . lastRowSums where
+  nextSums :: [Int] -> [Int] -> [Int]
+  nextSums prevSums newRow = zipWith max leftSums rightSums where
+    leftSums = zipWith (+) (0:prevSums) newRow
+    rightSums = zipWith (+) (prevSums ++ [0]) newRow
+
+  lastRowSums :: [[Int]] -> [Int]
+  lastRowSums = foldl' nextSums []
 
 maximizeFunc :: (Ord b) => (a -> b) -> [a] -> a
 maximizeFunc f [] = error "empty list"
