@@ -15,13 +15,11 @@ prop_fibs n = (n >= 0) ==> (n < 2000) ==> helper n where
 join :: a -> [[a]] -> [a]
 join x = intercalate [x]
 
-is_id :: (Eq a) => (a -> a) -> a -> Bool
-is_id f n = n == (f n)
 
-are_inverse f g = is_id (f . g)
+are_inverse f g = isFixed (f . g)
 
 prop_split_join :: (Char, String) -> Bool
-prop_split_join (x,l) = is_id (join x . split x) l
+prop_split_join (x,l) = isFixed (join x . split x) l
 
 prop_split_removes :: (Char, String) -> Bool
 prop_split_removes (x,l) = all (not . elem x) $ split x l
@@ -62,7 +60,7 @@ slowPrime x
   | otherwise = all (not . divs x) [2..x-1]
 
 prop_prime_model :: Int -> Property
-prop_prime_model x = (x <= 20000) ==> prop x where
+prop_prime_model x = (x <= 20000) ==> (x >= 0) ==> prop x where
   prop = checkModel isPrime slowPrime
 
 main = do
