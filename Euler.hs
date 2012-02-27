@@ -399,6 +399,18 @@ dispatch 47 = print $ head $ nSeqWith 4 (hasNPrimes 4) [1..] where
 
   hasNPrimes n = (>=n) . length . nub . primeFactorization
 
+dispatch 48 = print $ flip mod bigNum $ sum $ map toItself [1..1000] where
+  powerMod a b c = helper a b where
+    helper _ 0 = 1
+    helper a b
+      | a > c = flip helper b $ mod a c
+      | divs b 2 = helper (a * a) $ div b 2
+      | otherwise = flip mod c $ (* a) $ helper a (b - 1)
+
+  bigNum = (10 ^ 10)
+
+  toItself n = powerMod n n bigNum
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
