@@ -390,6 +390,14 @@ dispatch 42 = getAndProcess getContents countTriWords where
 
   triangles = map (\n -> div (n * (n+1)) 2) [1..]
 
+dispatch 47 = print $ head $ nSeqWith 4 (hasNPrimes 4) [1..] where
+  nSeqWith length pred l = helper 0 [] l where
+    helper count cache (x:xs)
+      | count == length = reverse cache
+      | pred x = helper (count + 1) (x:cache) xs
+      | otherwise = helper 0 [] xs
+
+  hasNPrimes n = (>=n) . length . nub . primeFactorization
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
