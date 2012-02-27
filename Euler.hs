@@ -356,6 +356,12 @@ dispatch 39 = print $ maxOn numSols [5..1000] where
   decorate f = map (\n -> (f n, n))
   maxOn key = snd . maximumBy (compare `on` fst) . decorate key
 
+dispatch 40 = print $ product $ map digitAt $ map (10^) $ [0..6] where
+  digits = concat $ map show [1..]
+
+  digitAt :: Int -> Int
+  digitAt n = read [digits !! (n - 1)]
+
 dispatch 41 = print bigPandigitalPrime where
   panDigital n = all (`elem` ds) [1..l] where
     ds = digs n
