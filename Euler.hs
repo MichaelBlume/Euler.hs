@@ -411,6 +411,26 @@ dispatch 48 = print $ flip mod bigNum $ sum $ map toItself [1..1000] where
 
   toItself n = powerMod n n bigNum
 
+dispatch 50 = print $ newIter 0 0 primeSums where
+  sums l = helper 0 l where
+    helper s [] = [s]
+    helper s (x:xs) = s:(helper (s+x) xs)
+
+  primeSums = map sums $ tails primes
+
+  newIter best length (l:ls)
+    | firstSum > bigNum = best
+    | otherwise = iter best length offsetList (length + 1) ls where
+        offsetList = drop length l
+        firstSum = head offsetList
+
+  iter best bLength (s:ss) offset ls
+    | s > bigNum = newIter best bLength ls
+    | isPrime s = iter s offset ss (offset+1) ls
+    | otherwise = iter best bLength ss (offset+1) ls
+
+  bigNum = 10 ^ 6
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
