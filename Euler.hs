@@ -11,6 +11,7 @@ import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
                ,pythagsSumming, wordsFromText, scoreChar)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
+import Memoize (memoizeF)
 
 dispatch :: Int -> IO ()
 dispatch 1 = print $ sum $ filter divThreeOrFive $ [0..999] where
@@ -427,6 +428,24 @@ dispatch 50 = print $ newIter 0 0 primeSums where
     | otherwise = iter best bLength ss (offset+1) ls
 
   bigNum = 10 ^ 6
+
+dispatch 55 = print . length . filter isLychrel $ [1..10000] where
+
+  reverseSum = (+) <$> id <*> reverseDigs
+
+  reverseDigs = read . reverse . show
+
+  isPalindrome = isFixed reverseDigs
+
+  revSumSer = memoizeF helper [] where
+    helper x = if isPalindrome rsx then [x,rsx] else (x:(revSumSer rsx)) where
+      rsx = reverseSum x
+
+  lengthAtLeast 0 _ = True
+  lengthAtLeast _ [] = False
+  lengthAtLeast n (x:xs) = lengthAtLeast (n-1) xs
+
+  isLychrel = lengthAtLeast 50 . revSumSer
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
