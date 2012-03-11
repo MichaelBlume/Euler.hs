@@ -447,6 +447,8 @@ dispatch 55 = print . length . filter isLychrel $ [1..10000] where
 
   isLychrel = lengthAtLeast 50 . revSumSer
 
+dispatch 56 = print . maximum . map sumDigs $ (^) <$> [1..100] <*> [1..100]
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
