@@ -41,7 +41,5 @@ getLines = do
       return (sLine:rest)
 
 getAndProcess :: (Show b) => IO a -> (a -> b) -> IO ()
-getAndProcess getter processor = do
-  intermediate <- getter
-  print $ processor intermediate
+getAndProcess getter processor = (liftM processor getter) >>= print
 
