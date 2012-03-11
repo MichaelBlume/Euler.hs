@@ -330,14 +330,11 @@ dispatch 37 = print $ sum $ take 11 $ filter truncateable bigPrimes where
   truncateable :: Int -> Bool
   truncateable = all isPrime . frags
 
-  frags = map read . applyBothWith assemble inits tails . show
+  frags = map read . (assemble <$> inits <*> tails) . show
 
   dropEnd = delete []
 
   assemble = on (++) dropEnd
-
-  applyBothWith :: (b -> c -> d) -> (a -> b) -> (a -> c) -> a -> d
-  applyBothWith c f g x = c (f x) (g x)
 
 dispatch 38 = print $ maximum panDigitals where
   products x = map (*x) [1..]
