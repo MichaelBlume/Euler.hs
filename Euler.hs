@@ -21,7 +21,7 @@ dispatch 2 = print $ sum $ filter even $ under 4000000 fibs
 
 dispatch 3 = print $ largestPrimeFactor 600851475143 where
   largestPrimeFactor :: Int -> Int
-  largestPrimeFactor = head . reverse . primeFactorization
+  largestPrimeFactor = last . primeFactorization
 
 dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes where
   palindromizeNum :: Int -> Int
