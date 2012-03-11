@@ -1,4 +1,4 @@
-module Memoize (memoizeF) where
+module Memoize (memoizeF, memoizeFNat) where
 
 import Onelines (divs)
 
@@ -23,3 +23,5 @@ seek (ITree _ l r) negVal n
 memoizeF :: (Integral n) => (n -> a) -> a -> n -> a
 memoizeF f = seek myData where
   myData = fmap f iNums
+
+memoizeFNat f = memoizeF f $ error "this function undefined for negatives"

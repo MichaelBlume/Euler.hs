@@ -21,7 +21,6 @@ import Data.Char (ord)
 
 import Primes (primes)
 import Onelines (divs)
-import Memoize (memoizeF)
 
 
 scoreChar c = 1 + (ord c) - ordA where

@@ -11,7 +11,7 @@ import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
                ,pythagsSumming, wordsFromText, scoreChar)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
-import Memoize (memoizeF)
+import Memoize (memoizeF, memoizeFNat)
 import Fraction(invert, numerator, denominator, Frac)
 
 dispatch :: Int -> IO ()
@@ -453,7 +453,7 @@ dispatch 56 = print . maximum . map sumDigs $ (^) <$> [1..100] <*> [1..100]
 dispatch 57 = print numNGreater where
   sqrt2Exp :: Int -> Frac
   sqrt2Exp n = 1 + (rightPart n) where
-    rightPart = memoizeF helper $ error "nonsense" where
+    rightPart = memoizeFNat helper where
       helper 0 = 0
       helper n = invert $ 2 + (rightPart $ n - 1)
 
