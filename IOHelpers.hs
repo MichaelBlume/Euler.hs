@@ -32,11 +32,13 @@ parseIntLine = map read . split ' '
 getLines :: IO [[Char]]
 getLines = do
   line <- getLine
-  if null line
-      then return []
-      else do
-          rest <- getLines
-          return (line:rest)
+  case line of
+    "" -> return []
+    "\r" -> return []
+    otherwise -> do
+      let sLine = takeWhile (/='\r') line
+      rest <- getLines
+      return (sLine:rest)
 
 getAndProcess :: (Show b) => IO a -> (a -> b) -> IO ()
 getAndProcess getter processor = do
