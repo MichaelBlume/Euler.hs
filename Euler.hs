@@ -12,6 +12,7 @@ import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
 import Memoize (memoizeF)
+import Fraction(invert, numerator, denominator, Frac)
 
 dispatch :: Int -> IO ()
 dispatch 1 = print $ sum $ filter divThreeOrFive $ [0..999] where
@@ -448,6 +449,18 @@ dispatch 55 = print . length . filter isLychrel $ [1..10000] where
   isLychrel = lengthAtLeast 50 . revSumSer
 
 dispatch 56 = print . maximum . map sumDigs $ (^) <$> [1..100] <*> [1..100]
+
+dispatch 57 = print numNGreater where
+  sqrt2Exp :: Int -> Frac
+  sqrt2Exp n = 1 + (rightPart n) where
+    rightPart = memoizeF helper $ error "nonsense" where
+      helper 0 = 0
+      helper n = invert $ 2 + (rightPart $ n - 1)
+
+  numDigs = length . show
+  moreNDigs = ((>) `on` numDigs) <$> numerator <*> denominator
+
+  numNGreater = length . filter moreNDigs . map sqrt2Exp $ [1..1000]
 
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
