@@ -42,7 +42,7 @@ dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes whe
 
 dispatch 5 = print $ foldr lcm 1 [1..20]
 
-dispatch 6 = print $ (square $ sum [1..100]) - (sum $ map square [1..100])
+dispatch 6 = print . ((-) <$> (square . sum) <*> (sum . map square)) $ [1..100]
 
 --TIME: 39s
 dispatch 7 = print result where
