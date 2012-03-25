@@ -464,6 +464,34 @@ dispatch 57 = print numNGreater where
 
   numNGreater = length . filter moreNDigs . map sqrt2Exp $ [1..1000]
 
+
+dispatch 58 = print . snd . head . dropWhile (uncurry enoughPrimes) $ zippedCounts where
+  counts pred = helper 0 where
+    helper _ [] = []
+    helper n (x:xs)
+      | pred x = (n+1:helper (n+1) xs)
+      | otherwise = (n:helper n xs)
+
+  dropEvery n = helper n where
+    helper _ [] = []
+    helper 1 (x:xs) = helper n xs
+    helper c (x:xs) = (x:helper (c-1) xs)
+
+  takeEvery n = helper n where
+    helper _ [] = []
+    helper 1 (x:xs) = (x:helper n xs)
+    helper c (x:xs) = helper (c-1) xs
+
+  primeCounts = takeEvery 3 . counts isPrime . dropEvery 4 . tail $ spiralDiags
+
+  sideLengths = [3,5..]
+
+  numspiralDiags l = 2 * l - 1
+
+  enoughPrimes pc sl = (10 * pc) > (numspiralDiags sl)
+
+  zippedCounts = zip primeCounts sideLengths
+
 dispatch 67 = getAndProcess takeIntGrid maxPath
 
 dispatch x = putStrLn "Mike hasn't done that one yet."
