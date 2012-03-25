@@ -8,7 +8,7 @@ import Data.Function (on)
 import Primes (primes, isPrime)
 import Helpers (maximizeFunc, sumProDivs, primeFactorization, fibs, maxPath
                ,isFixed, split, encodeDirect, sumDigs, digs, factorial
-               ,pythagsSumming, wordsFromText, scoreChar)
+               ,pythagsSumming, wordsFromText, scoreChar, spiralDiags)
 import IOHelpers (getAndProcess, getIntGrid, getLines, takeIntGrid)
 import Onelines (divs, under, pair, square)
 import Memoize (memoizeF, memoizeFNat)
@@ -270,6 +270,8 @@ dispatch 27 = print $ (fst result) * (snd result) where
   lengthPrimes = length . takeWhile isPrime
   quadratics (a,b) = map (\n -> n*n + a*n + b) [0..]
   enumerateQuads = pair <$> [-999..999] <*> [-999..999]
+
+dispatch 28 = print . sum . take 2001 $ spiralDiags
 
 dispatch 29 = print $ length $ nub $ (^) <$> [2..100] <*> [2..100]
 

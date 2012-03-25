@@ -13,6 +13,7 @@ module Helpers
 , pythagsSumming
 , wordsFromText
 , scoreChar
+, spiralDiags
 ) where
 
 import Control.Applicative ((<$>), (<*>))
@@ -21,6 +22,17 @@ import Data.Char (ord)
 
 import Primes (primes)
 import Onelines (divs)
+
+spiralDiags = scanl (+) 1 steps where
+  repeatParts :: (Integral n) => n -> [x] -> [x]
+  repeatParts _ [] = []
+  repeatParts n (first:rst) = helper n first n rst where
+      helper 0 _ _ [] = []
+      helper 0 _ n (first:rst) = helper n first n rst
+      helper left repeater n l =
+          repeater:(helper (left - 1) repeater n l)
+
+  steps = repeatParts 4 [2,4..]
 
 
 scoreChar c = 1 + (ord c) - ordA where
