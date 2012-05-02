@@ -106,10 +106,10 @@ sumProDivs n
     allProds a b = (*) <$> a <*> b
     getPows (n,b) = map (b ^) [0..n]
 
-sumDigs :: (Integral i) => i -> Int
+sumDigs :: (Integral i, Show i) => i -> Int
 sumDigs = sum . digs
 
-digs :: (Integral i) => i -> [Int]
+digs :: (Integral i, Show i) => i -> [Int]
 digs = map (\n -> read [n]) . show
 
 split :: (Eq a) => a -> [a] -> [[a]]
