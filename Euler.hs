@@ -214,7 +214,7 @@ dispatch 17 = print $ sum $ map lettersInNumber [1..1000] where
 
 dispatch 18 = getAndProcess getIntGrid maxPath
 
-dispatch 20 = print $ sumDigs $ factorial 100 where
+dispatch 20 = print $ sumDigs $ factorial 100
 
 dispatch 21 = print $ sum $ filter amicable [1..9999] where
 
