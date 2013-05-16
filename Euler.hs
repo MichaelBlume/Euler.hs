@@ -398,6 +398,7 @@ dispatch 47 = print $ head $ nSeqWith 4 (hasNPrimes 4) [1..] where
       | pred x = helper (count + 1) (x:cache) xs
       | otherwise = helper 0 [] xs
 
+  hasNPrimes :: Int -> Int -> Bool
   hasNPrimes n = (>=n) . length . nub . primeFactorization
 
 dispatch 48 = print $ flip mod bigNum $ sum $ map toItself [1..1000] where
