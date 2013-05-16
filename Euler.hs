@@ -498,4 +498,6 @@ dispatch x = putStrLn "Mike hasn't done that one yet."
 
 main = do
   args <- getArgs
-  dispatch $ read $ args !! 0
+  if length args > 0
+      then dispatch $ read $ args !! 0
+      else putStrLn "Usage: Euler ProblemNumber"
