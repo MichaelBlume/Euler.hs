@@ -24,4 +24,4 @@ instance Num Frac where
 instance Ord Frac where
   compare (Frac n1 d1) (Frac n2 d2) = compare (n1 * d2) (n2 * d1)
 
-invert (Frac n d) = fraction d n
+invert (Frac n d) = Frac d n
