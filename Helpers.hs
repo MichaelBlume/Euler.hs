@@ -119,7 +119,7 @@ split s (h:t)
   | otherwise = (h:first):rest where
       (first:rest) = split s t
 
-primeFactorization :: Int -> [Int]
+primeFactorization :: (Integral n) => n -> [n]
 primeFactorization = helper primes where
   helper _ 1 = []
   helper ps@(fp:rp) n
