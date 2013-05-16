@@ -22,7 +22,7 @@ dispatch 1 = print $ sum $ filter divThreeOrFive $ [0..999] where
 dispatch 2 = print $ sum $ filter even $ under 4000000 fibs
 
 dispatch 3 = print $ largestPrimeFactor 600851475143 where
-  largestPrimeFactor :: Int -> Int
+  largestPrimeFactor :: Integer -> Integer
   largestPrimeFactor = last . primeFactorization
 
 dispatch 4 = print $ head $ filter isThreeDigProduct enumerateSixPalindromes where
